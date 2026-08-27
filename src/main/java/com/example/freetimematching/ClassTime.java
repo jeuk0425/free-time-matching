@@ -8,7 +8,7 @@ public class ClassTime {
     private final DayOfWeek dayOfWeek;
     private final LocalTime startTime;
     private final LocalTime endTime;
-
+    
     public ClassTime(DayOfWeek dayOfWeek, LocalTime startTime, LocalTime endTime) {
         this.dayOfWeek = Objects.requireNonNull(dayOfWeek, "요일은 null일 수 없습니다.");
         this.startTime = Objects.requireNonNull(startTime, "시작 시간은 null일 수 없습니다.");
@@ -32,7 +32,7 @@ public class ClassTime {
     }
 
 
-    //다른 수업시간 other를 받아서 겹치면 true, 안 겹치면 false 반환
+    //두 수업시간이 겹치는지 확인하는메서드
     public boolean overlaps(ClassTime other) {
         Objects.requireNonNull(other, "비교할 수업 시간은 null일 수 없습니다.");
 
