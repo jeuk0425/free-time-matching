@@ -5,42 +5,26 @@ import java.time.LocalTime;
 import java.util.Objects;
 
 public class ClassTime {
-    private final DayOfWeek dayOfWeek;
-    private final LocalTime startTime;
-    private final LocalTime endTime;
+    private final TimeSlot timeSlot;
     
     public ClassTime(DayOfWeek dayOfWeek, LocalTime startTime, LocalTime endTime) {
-        this.dayOfWeek = Objects.requireNonNull(dayOfWeek, "요일은 null일 수 없습니다.");
-        this.startTime = Objects.requireNonNull(startTime, "시작 시간은 null일 수 없습니다.");
-        this.endTime = Objects.requireNonNull(endTime, "종료 시간은 null일 수 없습니다.");
-
-        if (!startTime.isBefore(endTime)) {
-            throw new IllegalArgumentException("시작 시간은 종료 시간보다 빨라야 합니다.");
-        }
+        this.timeSlot = new TimeSlot(dayOfWeek, startTime, endTime);
     }
 
     public DayOfWeek getDayOfWeek() {
-        return dayOfWeek;
+        return timeSlot.getDayOfWeek();
     }
 
     public LocalTime getStartTime() {
-        return startTime;
+        return timeSlot.getStartTime();
     }
 
     public LocalTime getEndTime() {
-        return endTime;
+        return timeSlot.getEndTime();
     }
 
-
-    //두 수업시간이 겹치는지 확인하는메서드
     public boolean overlaps(ClassTime other) {
         Objects.requireNonNull(other, "비교할 수업 시간은 null일 수 없습니다.");
-
-        if (dayOfWeek != other.dayOfWeek) {
-            return false;
-        }
-
-        return startTime.isBefore(other.endTime)
-                && other.startTime.isBefore(endTime);
+        return timeSlot.overlaps(other.timeSlot);
     }
 }
